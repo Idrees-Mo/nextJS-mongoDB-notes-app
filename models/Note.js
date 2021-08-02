@@ -1,14 +1,18 @@
-const { mongoose } = require("mongoose");
+import mongoose from "mongoose";
 
 const NoteSchema = new mongoose.Schema({
   title: {
     type: String,
-    required: [ture, "Note title is required"],
+    required: [true, "Please add a title"],
+    unique: true,
+    maxlength: [40, "Title cannot be more than 40 characters"],
   },
-  detail: {
+  description: {
     type: String,
-    required: [true, "Note detail is required"],
+    required: true,
+    maxlength: [200, "Description cannot be more than 200 characters"],
   },
 });
 
-export default Note = mongoose.model("note", NoteSchema);
+const Note = mongoose.models.Note || mongoose.model("Note", NoteSchema);
+export default Note;
